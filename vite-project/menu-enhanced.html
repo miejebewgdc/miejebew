@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Menu - Mie Jebew GDC</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Theme Config -->
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ea1a1a",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#211111",
+                        "card-light": "#ffffff",
+                        "card-dark": "#2a1e1e",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "2xl": "4rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        /* Toast Animation */
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .toast-enter {
+            animation: slideIn 0.3s ease-out forwards;
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark min-h-screen font-display flex flex-col overflow-x-hidden">
+    <!-- Navigation -->
+    <header
+        class="sticky top-0 z-50 bg-white dark:bg-card-dark border-b border-gray-100 dark:border-gray-800 transition-colors duration-300">
+        <div class="max-w-[1280px] mx-auto px-4 sm:px-10 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-4 text-[#181111] dark:text-white">
+                <div class="size-8 text-primary">
+                    <span class="material-symbols-outlined text-3xl">ramen_dining</span>
+                </div>
+                <h2 class="text-lg font-extrabold leading-tight tracking-[-0.015em] text-gray-900 dark:text-white">Mie
+                    Jebew GDC</h2>
+            </div>
+            <div class="hidden md:flex flex-1 justify-end gap-8 items-center">
+                <div class="flex items-center gap-8">
+                    <a class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-bold transition-colors"
+                        href="#">Home</a>
+                    <a class="text-primary dark:text-primary text-sm font-bold transition-colors" href="#">Menu</a>
+                    <a class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-bold transition-colors"
+                        href="#">Contact</a>
+                    <a class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-bold transition-colors"
+                        href="#">About Us</a>
+                </div>
+                <button id="cartButton"
+                    class="flex items-center justify-center rounded-full h-10 bg-gray-100 dark:bg-gray-800 hover:bg-primary hover:text-white text-gray-900 dark:text-white gap-2 text-sm font-bold px-4 transition-all">
+                    <span class="material-symbols-outlined text-[20px]">shopping_cart</span>
+                    <span id="cartCount">Cart (0)</span>
+                </button>
+            </div>
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden p-2 text-gray-900 dark:text-white">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+        </div>
+    </header>
+    <!-- Page Content -->
+    <main class="flex-1 w-full max-w-[1280px] mx-auto px-4 sm:px-10 py-8">
+        <!-- Hero Banner -->
+        <div class="relative w-full rounded-2xl overflow-hidden mb-10 min-h-[240px] flex items-center justify-center bg-cover bg-center"
+            data-alt="Dark moody overhead shot of spicy asian noodle dishes"
+            style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://lh3.googleusercontent.com/aida-public/AB6AXuCAhGex5NM42zXg5f7jW00lhupQRjAqSxFpwpxyTPDwcW5g6R0XszqklVD5Ikd4zpxA2Q3Ndb_6dRUG6EnLmVTe5YFvI8UAsJihAom720VRvEC-JjtB74q2DWQgjfj3t1eKSWFazmc0RpQHzPiRCJHgaT75qDAqfrhExXQCovAnCRZMVb167fEZoujDuMjVQKf0MpkC2k1pKiUa4BI02-8j5NkOVeb9LFZfc1lvQDyCRfLBm8e4QH7tGsURrqVVFvRp9BllmgCll8A');">
+            <div class="text-center z-10 px-4">
+                <h1 class="text-white text-4xl md:text-5xl font-black mb-2 tracking-tight">Our Menu</h1>
+                <p class="text-gray-200 text-lg md:text-xl font-medium max-w-xl mx-auto">Explore the spicy sensation of
+                    Mie Jebew and our crispy sides.</p>
+            </div>
+        </div>
+        <!-- Filter Chips -->
+        <div
+            class="sticky top-[72px] z-40 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-sm py-4 -mx-4 px-4 sm:mx-0 sm:px-0 mb-8 overflow-x-auto no-scrollbar">
+            <div class="flex gap-3 min-w-max" id="filterContainer">
+                <!-- Active Chip class: bg-primary text-white shadow-lg shadow-red-500/20 -->
+                <!-- Inactive class: bg-white dark:bg-card-dark border ... -->
+                <button
+                    class="filter-btn active flex h-10 items-center justify-center gap-x-2 rounded-full bg-primary pl-4 pr-6 text-white shadow-lg shadow-red-500/20 transition-transform hover:scale-105 active:scale-95"
+                    data-filter="all">
+                    <span class="material-symbols-outlined text-[20px]">storefront</span>
+                    <span class="text-sm font-bold">All</span>
+                </button>
+
+                <button
+                    class="filter-btn flex h-10 items-center justify-center gap-x-2 rounded-full bg-white dark:bg-card-dark border border-gray-200 dark:border-gray-700 pl-4 pr-6 text-gray-700 dark:text-gray-200 hover:border-primary hover:text-primary transition-all"
+                    data-filter="noodle">
+                    <span class="material-symbols-outlined text-[20px]">ramen_dining</span>
+                    <span class="text-sm font-bold">Mie Jebew</span>
+                </button>
+
+                <button
+                    class="filter-btn flex h-10 items-center justify-center gap-x-2 rounded-full bg-white dark:bg-card-dark border border-gray-200 dark:border-gray-700 pl-4 pr-6 text-gray-700 dark:text-gray-200 hover:border-primary hover:text-primary transition-all"
+                    data-filter="kebab">
+                    <span class="material-symbols-outlined text-[20px]">kebab_dining</span>
+                    <span class="text-sm font-bold">Kebab</span>
+                </button>
+
+                <button
+                    class="filter-btn flex h-10 items-center justify-center gap-x-2 rounded-full bg-white dark:bg-card-dark border border-gray-200 dark:border-gray-700 pl-4 pr-6 text-gray-700 dark:text-gray-200 hover:border-primary hover:text-primary transition-all"
+                    data-filter="snack">
+                    <span class="material-symbols-outlined text-[20px]">egg</span>
+                    <span class="text-sm font-bold">Lumpia Beef</span>
+                </button>
+
+                <button
+                    class="filter-btn flex h-10 items-center justify-center gap-x-2 rounded-full bg-white dark:bg-card-dark border border-gray-200 dark:border-gray-700 pl-4 pr-6 text-gray-700 dark:text-gray-200 hover:border-primary hover:text-primary transition-all"
+                    data-filter="drink">
+                    <span class="material-symbols-outlined text-[20px]">local_drink</span>
+                    <span class="text-sm font-bold">Drinks</span>
+                </button>
+            </div>
+        </div>
+        <!-- Section Title -->
+        <div class="flex items-end justify-between mb-6">
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Popular Dishes</h3>
+            <span id="itemCount" class="text-sm font-medium text-gray-500 dark:text-gray-400">Showing 8 items</span>
+        </div>
+
+        <!-- Menu Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="menuGrid">
+            <!-- Cards (Added data-category and js-menu-card class) -->
+
+            <!-- Card 1 -->
+            <div class="group bg-white dark:bg-card-dark rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-xl hover:shadow-red-500/10 transition-all duration-300 flex flex-col h-full cursor-pointer js-menu-card"
+                data-category="noodle" data-price="10000" data-title="Mie Jebew">
+                <div class="relative aspect-[4/3] overflow-hidden">
+                    <div
+                        class="absolute top-3 left-3 bg-primary text-white text-xs font-bold px-2.5 py-1 rounded-full z-10 flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[14px]">local_fire_department</span> Best Seller
+                    </div>
+                    <div class="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-500"
+                        style="background-image: url('https://i.ibb.co.com/tG4WkRC/unnamed-2-s.jpg');">
+                    </div>
+                </div>
+                <div class="p-5 flex flex-col flex-1">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3
+                            class="text-lg font-bold text-gray-900 dark:text-white group-hover:text-primary transition-colors">
+                            Mie Jebew</h3>
+                        <span class="text-lg font-bold text-primary">Rp 10.000</span>
+                    </div>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed mb-4 line-clamp-2">
+                        Mie buatan tangan yang disiram racikan chili oil spesial dengan taburan ayam gurih di atasnya.
+                        Level pedas dapat disesuaikan.
+                    </p>
+                    <div
+                        class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between gap-3">
+                        <div class="flex gap-0.5 text-primary/80">
+                            <span class="material-symbols-outlined text-[18px]">local_fire_department</span>
+                            <span class="material-symbols-outlined text-[18px]">local_fire_department</span>
+                            <span class="material-symbols-outlined text-[18px]">local_fire_department</span>
+                            <span class="text-xs ml-1 font-bold">Lvl 5</span>
+                        </div>
+                        <button
+                            class="bg-primary hover:bg-red-700 text-white text-sm font-bold py-2 px-4 rounded-full transition-colors flex items-center gap-1 quick-add-btn">
+                            Add <span class="material-symbols-outlined text-[16px]">add</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="group bg-white dark:bg-card-dark rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-xl hover:shadow-red-500/10 transition-all duration-300 flex flex-col h-full cursor-pointer js-menu-card"
+                data-category="kebab" data-price="12000" data-title="Kebab Beef">
+                <div class="relative aspect-[4/3] overflow-hidden">
+                    <div class="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-500"
+                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDGTYOlYsswteX8vJAiHbMCaLpenaSssCDD-bTc2fyUu_8I6oVZOxvIlYVvAxlgLPj1V_x2SvNCJth1Ng6GbkMX-WbYrnqdZ2xD8uo0kSg_2-Oid3_Sv4ospkhxEQKM0ocO495_BFot7mdJUl-ESacRsyj_ULcGFuisyQr2DL18aoXoSfcNkK5ndCAZ39GhX1eJc_KIC4E9wc-hyW7H72JEFzfHJz80aMvuoX-HPu3IJqSTgmcf_d3xXRVwhb6KLeqErKJ8FxAZ5UI');">
+                    </div>
+                </div>
+                <div class="p-5 flex flex-col flex-1">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3
+                            class="text-lg font-bold text-gray-900 dark:text-white group-hover:text-primary transition-colors">
+                            Kebab Beef</h3>
+                        <span class="text-lg font-bold text-primary">Rp 12.000</span>
+                    </div>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed mb-4 line-clamp-2">
+                        Irisan daging sapi panggang yang juicy berpadu dengan selada segar, dibalut tortila lembut dan
+                        siraman saus putih rahasia kami.
+                    </p>
+                    <div
+                        class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between gap-3">
+                        <div class="flex gap-0.5 text-gray-300">
+                            <span
+                                class="material-symbols-outlined text-[18px] text-orange-400">local_fire_department</span>
+                        </div>
+                        <button
+                            class="bg-primary hover:bg-red-700 text-white text-sm font-bold py-2 px-4 rounded-full transition-colors flex items-center gap-1 quick-add-btn">
+                            Add <span class="material-symbols-outlined text-[16px]">add</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="group bg-white dark:bg-card-dark rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-xl hover:shadow-red-500/10 transition-all duration-300 flex flex-col h-full cursor-pointer js-menu-card"
+                data-category="snack" data-price="10000" data-title="Lumpia Beef">
+                <div class="relative aspect-[4/3] overflow-hidden">
+                    <div class="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-500"
+                        style="background-image: url('https://i.ibb.co.com/9Hhd4XTy/Lumpia-a.jpg');">
+                    </div>
+                </div>
+                <div class="p-5 flex flex-col flex-1">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3
+                            class="text-lg font-bold text-gray-900 dark:text-white group-hover:text-primary transition-colors">
+                            Lumpia Beef</h3>
+                        <span class="text-lg font-bold text-primary">Rp 10.000</span>
+                    </div>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed mb-4 line-clamp-2">
+                        Kriuk di luar, mewah di dalam! Kulit lumpia renyah yang membungkus beef slice yang juicy dan
+                        saus gurih.
+                    </p>
+                    <div
+                        class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between gap-3">
+                        <div class="flex gap-0.5 text-gray-300">
+                            <span
+                                class="material-symbols-outlined text-[18px] text-orange-400">local_fire_department</span>
+                        </div>
+                        <button
+                            class="bg-primary hover:bg-red-700 text-white text-sm font-bold py-2 px-4 rounded-full transition-colors flex items-center gap-1 quick-add-btn">
+                            Add <span class="material-symbols-outlined text-[16px]">add</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="group bg-white dark:bg-card-dark rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-xl hover:shadow-red-500/10 transition-all duration-300 flex flex-col h-full cursor-pointer js-menu-card"
+                data-category="noodle" data-price="14000" data-title="Mie Yamin Manis">
+                <div class="relative aspect-[4/3] overflow-hidden">
+                    <div class="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-500"
+                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAxiQcIQV2LexrVLgw548ggqbp09QEFwjx0pnIxKGeqveWZPUaZ0VVxPQBLvkscg8TWvxbEtfMnVnW6zXAxiCRA9FsTCJEA5eYWrGzWUktAzbmILE6YZ_kctSuywbPf8tf41FJc8eqqA6IFNGXlq32cslWCaGftvXUc9OhiOeLCHFXSrQ4VkAyRVRFBbip1jki-QJQPM9l76F1-ubmJ-ykr-6VcVx_351WynlBl4phlzEr15YN9H2PKTifhbyBvoPMhrCa3ioATn68');">
+                    </div>
+                </div>
+                <div class="p-5 flex flex-col flex-1">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3
+                            class="text-lg font-bold text-gray-900 dark:text-white group-hover:text-primary transition-colors">
+                            Mie Yamin Manis</h3>
+                        <span class="text-lg font-bold text-primary">14k</span>
+                    </div>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed mb-4 line-clamp-2">
+                        Perpaduan rasa manis kecap berkualitas dan gurihnya bumbu rahasia. Tidak pedas.
+                    </p>
+                    <div
+                        class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between gap-3">
+                        <div class="flex gap-0.5 text-gray-300">
+                            <span class="material-symbols-outlined text-[18px] opacity-20">local_fire_department</span>
+                        </div>
+                        <button
+                            class="bg-primary hover:bg-red-700 text-white text-sm font-bold py-2 px-4 rounded-full transition-colors flex items-center gap-1 quick-add-btn">
+                            Add <span class="material-symbols-outlined text-[16px]">add</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="group bg-white dark:bg-card-dark rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-xl hover:shadow-red-500/10 transition-all duration-300 flex flex-col h-full cursor-pointer js-menu-card"
+                data-category="noodle" data-price="16000" data-title="Mie Jebew Chicken Katsu">
+                <div class="relative aspect-[4/3] overflow-hidden">
+                    <div class="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-500"
+                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAUZ9eiyS9JnVdDRczvaO_feK4LPS1gdqpuCrfyowDjLKL6e3lIAGZGaztDI8rA44UXtqf__iJNcIe0wCPsRB5GmU-pIU72GYeixqNkCv3HY5BBdAREgaz_jfmTByaLiJf3HfT2PyBxscTv5lbvU7xT1MWIbzF5Nvpedi1XTmjeSyvkye7iiZDOL2dp_Oq01N9VpZzUt9jGyLgCm6MsZk5vc4SuYey4WDWGuuHqff5pubDMcD8PcoUagaskiwGoMwmxoFWfYzGhDaU');">
+                    </div>
+                </div>
+                <div class="p-5 flex flex-col flex-1">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3
+                            class="text-lg font-bold text-gray-900 dark:text-white group-hover:text-primary transition-colors">
+                            Mie Jebew Chicken Katsu</h3>
+                        <span class="text-lg font-bold text-primary">16k</span>
+                    </div>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed mb-4 line-clamp-2">
+                        Varian kuah pedas yang segar, disajikan dengan telur rebus dan sayuran.
+                    </p>
+                    <div
+                        class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between gap-3">
+                        <div class="flex gap-0.5 text-primary/80">
+                            <span class="material-symbols-outlined text-[18px]">local_fire_department</span>
+                            <span class="material-symbols-outlined text-[18px]">local_fire_department</span>
+                            <span class="text-xs ml-1 font-bold">Lvl 4</span>
+                        </div>
+                        <button
+                            class="bg-primary hover:bg-red-700 text-white text-sm font-bold py-2 px-4 rounded-full transition-colors flex items-center gap-1 quick-add-btn">
+                            Add <span class="material-symbols-outlined text-[16px]">add</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 6 -->
+            <div class="group bg-white dark:bg-card-dark rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-xl hover:shadow-red-500/10 transition-all duration-300 flex flex-col h-full cursor-pointer js-menu-card"
+                data-category="kebab" data-price="25000" data-title="Kebab Mini (3 pcs)">
+                <div class="relative aspect-[4/3] overflow-hidden">
+                    <div class="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-500"
+                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCXdJc5QfbTEtkBz-K7p8dUXtst992pu0iorA5I8s7MOzyMb2iN7BDc2rxrYRM5TMGhLXvePwj00xGIFQWz95F4qXFyiWtl3T9jBK7R1vwWzVcJ5E6YiePjP66NIdivO3k5bwRQP3ORTo364ZZQfXL9iaogLIq6fFv47KRpRzyEu-eruidUaGn7Ece5s3QZ_d2R9gElgGFAVshUqvUZ-mJqtzBY0293uq4-GCcZpz6MAW7yC6L1YCyyhspNUgPAW-ViYGysvhhNY2k');">
+                    </div>
+                </div>
+                <div class="p-5 flex flex-col flex-1">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3
+                            class="text-lg font-bold text-gray-900 dark:text-white group-hover:text-primary transition-colors">
+                            Kebab Mini (3 pcs)</h3>
+                        <span class="text-lg font-bold text-primary">25k</span>
+                    </div>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed mb-4 line-clamp-2">
+                        Paket hemat 3 kebab ukuran mini. Pilihan tepat untuk berbagi dengan teman.
+                    </p>
+                    <div
+                        class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between gap-3">
+                        <div class="flex gap-0.5 text-gray-300">
+                            <span
+                                class="material-symbols-outlined text-[18px] text-orange-400">local_fire_department</span>
+                        </div>
+                        <button
+                            class="bg-primary hover:bg-red-700 text-white text-sm font-bold py-2 px-4 rounded-full transition-colors flex items-center gap-1 quick-add-btn">
+                            Add <span class="material-symbols-outlined text-[16px]">add</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 7 -->
+            <div class="group bg-white dark:bg-card-dark rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-xl hover:shadow-red-500/10 transition-all duration-300 flex flex-col h-full cursor-pointer js-menu-card"
+                data-category="drink" data-price="10000" data-title="Orange Splash">
+                <div class="relative aspect-[4/3] overflow-hidden">
+                    <div class="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-500"
+                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAN6HxrO1QMPck9bWm6OHJ-qRfNIhbML9Hdq-bAFT90jzVsSM5CFEaPHRUrOWm0yZ5rin-ticU8g0SwYIopmkUJc5CxAGxnwIoLXHHMORNUIZjYI4e0Ha-28Sblkql8LlyH4BxjDJcH71Gc4UF5JW2o_l9EjmloLQBAgVtPB8HSt1pEENuEYD_et29ca58C2KHphYioQhDSNEUyrVsIj6ydGvIWWXU-j_PO_eyz0xLFRdDPvGAibspQkus7SjlgEUxHjWqN3ACiVcY');">
+                    </div>
+                </div>
+                <div class="p-5 flex flex-col flex-1">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3
+                            class="text-lg font-bold text-gray-900 dark:text-white group-hover:text-primary transition-colors">
+                            Orange Splash</h3>
+                        <span class="text-lg font-bold text-primary">10k</span>
+                    </div>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed mb-4 line-clamp-2">
+                        Minuman jeruk segar dengan soda dan es batu. Penghilang pedas terbaik!
+                    </p>
+                    <div
+                        class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between gap-3">
+                        <div class="flex gap-0.5 text-blue-400">
+                            <span class="material-symbols-outlined text-[18px]">local_drink</span>
+                        </div>
+                        <button
+                            class="bg-primary hover:bg-red-700 text-white text-sm font-bold py-2 px-4 rounded-full transition-colors flex items-center gap-1 quick-add-btn">
+                            Add <span class="material-symbols-outlined text-[16px]">add</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 8 -->
+            <div class="group bg-white dark:bg-card-dark rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-xl hover:shadow-red-500/10 transition-all duration-300 flex flex-col h-full cursor-pointer js-menu-card"
+                data-category="drink" data-price="5000" data-title="Es Teh Manis">
+                <div class="relative aspect-[4/3] overflow-hidden">
+                    <div class="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-500"
+                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA1eGYgZPuqSMB5ZRDhAGACNrQeryLjFV5q2qEcm4gjdLEOsNxuUc61yZsm9kQbECLF0ykq5u4Z9mojWeU4411zDR6_HCDEcqmZdTciFzt0UvKnkfsLCcbYliNuAEd__4qw9bQ75xp81B77r3L3uxUKwigFqA7vFhEHwuMbrrVYj2Up6Nanllme3_ywTDA2wxtA0VYrqocLhgo8o0GGG-_wkei2Gkj5iJvukT9H9QTgQEsGcgNBQIRrzS_9fqc_1i9CMH0deKS6fB8');">
+                    </div>
+                </div>
+                <div class="p-5 flex flex-col flex-1">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3
+                            class="text-lg font-bold text-gray-900 dark:text-white group-hover:text-primary transition-colors">
+                            Es Teh Manis</h3>
+                        <span class="text-lg font-bold text-primary">5k</span>
+                    </div>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed mb-4 line-clamp-2">
+                        Teh manis dingin klasik yang menyegarkan dahaga.
+                    </p>
+                    <div
+                        class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between gap-3">
+                        <div class="flex gap-0.5 text-blue-400">
+                            <span class="material-symbols-outlined text-[18px]">local_drink</span>
+                        </div>
+                        <button
+                            class="bg-primary hover:bg-red-700 text-white text-sm font-bold py-2 px-4 rounded-full transition-colors flex items-center gap-1 quick-add-btn">
+                            Add <span class="material-symbols-outlined text-[16px]">add</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Load More -->
+        <div class="flex justify-center mt-12">
+            <button
+                class="text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full px-8 py-3 text-sm font-bold transition-all flex items-center gap-2">
+                <span>View All Menu</span>
+                <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+            </button>
+        </div>
+    </main>
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-card-dark border-t border-gray-100 dark:border-gray-800 pt-12 pb-8">
+        <div class="max-w-[1280px] mx-auto px-4 sm:px-10">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center gap-3 text-[#181111] dark:text-white mb-4">
+                        <div class="size-8 text-primary">
+                            <span class="material-symbols-outlined text-3xl">ramen_dining</span>
+                        </div>
+                        <h2 class="text-xl font-extrabold tracking-[-0.015em]">Mie Jebew GDC</h2>
+                    </div>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed max-w-xs">
+                        Nikmati sensasi pedas yang nampol dan rasa yang juara hanya di Mie Jebew GDC. Freshly made every
+                        day.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400">
+                        <li><a class="hover:text-primary transition-colors" href="#">Home</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Menu</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-4">Connect With Us</h4>
+                    <ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400">
+                        <li><a class="hover:text-primary transition-colors" href="#">Instagram</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Facebook</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">TikTok</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div
+                class="border-t border-gray-100 dark:border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-xs text-gray-400 text-center md:text-left">© 2023 Mie Jebew GDC. All rights reserved.</p>
+                <div class="flex gap-4">
+                    <a class="text-xs text-gray-400 hover:text-gray-600 dark:hover:text-gray-300" href="#">Privacy
+                        Policy</a>
+                    <a class="text-xs text-gray-400 hover:text-gray-600 dark:hover:text-gray-300" href="#">Terms of
+                        Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="fixed bottom-4 right-4 z-[110] flex flex-col gap-2"></div>
+
+    <!-- Modal Backdrop -->
+    <div id="productModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4">
+        <!-- Backdrop Overlay -->
+        <div id="modalBackdrop"
+            class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity opacity-0 duration-300"></div>
+
+        <!-- Modal Content -->
+        <div id="modalContent"
+            class="relative bg-white dark:bg-[#2a1e1e] w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl transform scale-95 opacity-0 transition-all duration-300 z-10 flex flex-col max-h-[90vh]">
+            <!-- Close Button -->
+            <button id="closeModal"
+                class="absolute top-4 right-4 z-20 p-2 rounded-full bg-black/20 text-white hover:bg-black/40 transition-colors backdrop-blur-md">
+                <span class="material-symbols-outlined text-[20px]">close</span>
+            </button>
+
+            <!-- Image Container -->
+            <div class="relative w-full h-64 sm:h-72 shrink-0">
+                <div id="modalImage" class="absolute inset-0 bg-cover bg-center"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+            </div>
+
+            <!-- Details Container -->
+            <div class="p-6 sm:p-8 flex flex-col gap-4 overflow-y-auto">
+                <div class="flex items-start justify-between gap-4">
+                    <h3 id="modalTitle"
+                        class="text-2xl sm:text-3xl font-black text-gray-900 dark:text-white leading-tight"></h3>
+                    <span id="modalPrice" class="text-xl sm:text-2xl font-bold text-primary shrink-0"></span>
+                </div>
+
+                <p id="modalDescription" class="text-gray-600 dark:text-gray-300 text-base leading-relaxed"></p>
+
+                <div class="pt-6 mt-auto border-t border-gray-100 dark:border-gray-800 flex items-center gap-4">
+                    <div class="flex items-center border border-gray-200 dark:border-gray-700 rounded-full h-12">
+                        <button id="decreaseQty"
+                            class="px-4 h-full text-gray-500 hover:text-primary transition-colors font-bold text-lg">-</button>
+                        <span id="modalQty" class="w-8 text-center font-bold text-gray-900 dark:text-white">1</span>
+                        <button id="increaseQty"
+                            class="px-4 h-full text-gray-500 hover:text-primary transition-colors font-bold text-lg">+</button>
+                    </div>
+                    <button id="addToCartBtn"
+                        class="flex-1 bg-primary hover:bg-red-700 text-white h-12 rounded-full font-bold text-base shadow-lg shadow-primary/30 transition-all hover:-translate-y-1 active:translate-y-0 flex items-center justify-center gap-2">
+                        <span>Add to Order</span>
+                        <span class="material-symbols-outlined">shopping_bag</span>
+                        <span id="totalPrice" class="bg-white/20 px-2 py-0.5 rounded text-xs ml-1"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- State ---
+            let cartCount = 0;
+            let currentQty = 1;
+            let currentBasePrice = 0;
+            let currentItemTitle = "";
+
+            // --- Elements ---
+            const modal = document.getElementById('productModal');
+            const modalBackdrop = document.getElementById('modalBackdrop');
+            const modalContent = document.getElementById('modalContent');
+            const closeModalBtn = document.getElementById('closeModal');
+            const cards = document.querySelectorAll('.js-menu-card');
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const menuGrid = document.getElementById('menuGrid');
+            const cartCountLabel = document.getElementById('cartCount');
+            const toastContainer = document.getElementById('toastContainer');
+            const decreaseQtyBtn = document.getElementById('decreaseQty');
+            const increaseQtyBtn = document.getElementById('increaseQty');
+            const modalQtyDisplay = document.getElementById('modalQty');
+            const totalPriceLabel = document.getElementById('totalPrice');
+            const addToCartBtn = document.getElementById('addToCartBtn');
+
+            // Modal Elements
+            const modalImage = document.getElementById('modalImage');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalPrice = document.getElementById('modalPrice');
+            const modalDescription = document.getElementById('modalDescription');
+
+            // --- Helper Functions ---
+            function formatPrice(price) {
+                return (price / 1000) + 'k';
+            }
+
+            function showToast(message) {
+                const toast = document.createElement('div');
+                toast.className = 'toast-enter bg-gray-900 text-white px-6 py-3 rounded-full shadow-xl flex items-center gap-3 min-w-[300px] z-[120]';
+                toast.innerHTML = `
+                <span class="material-symbols-outlined text-green-400">check_circle</span>
+                <span class="font-bold text-sm">\${message}</span>
+            `;
+                toastContainer.appendChild(toast);
+
+                setTimeout(() => {
+                    toast.style.transition = 'all 0.3s ease';
+                    toast.style.opacity = '0';
+                    toast.style.transform = 'translateY(10px)';
+                    setTimeout(() => toast.remove(), 300);
+                }, 3000);
+            }
+
+            function updateCart(qty) {
+                cartCount += qty;
+                cartCountLabel.innerText = `Cart (\${cartCount})`;
+
+                // Animate cart button
+                const btn = document.getElementById('cartButton');
+                btn.classList.add('scale-110', 'bg-primary', 'text-white');
+                setTimeout(() => {
+                    btn.classList.remove('scale-110', 'bg-primary', 'text-white');
+                }, 200);
+            }
+
+            function updateModalPrice() {
+                modalQtyDisplay.innerText = currentQty;
+                totalPriceLabel.innerText = formatPrice(currentBasePrice * currentQty);
+            }
+
+            // --- Filter Logic ---
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Remove active class from all
+                    filterBtns.forEach(b => {
+                        b.classList.remove('bg-primary', 'text-white', 'shadow-lg');
+                        b.classList.add('bg-white', 'dark:bg-card-dark', 'text-gray-700', 'dark:text-gray-200');
+                    });
+                    // Add active to clicked
+                    btn.classList.remove('bg-white', 'dark:bg-card-dark', 'text-gray-700', 'dark:text-gray-200');
+                    btn.classList.add('bg-primary', 'text-white', 'shadow-lg');
+
+                    const filter = btn.dataset.filter;
+                    const items = document.querySelectorAll('.js-menu-card');
+                    let count = 0;
+
+                    items.forEach(item => {
+                        if (filter === 'all' || item.dataset.category === filter) {
+                            item.style.display = 'flex';
+                            count++;
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+
+                    document.getElementById('itemCount').innerText = `Showing \${count} items`;
+                });
+            });
+
+            // --- Modal Logic ---
+            function openModal(card) {
+                const bgImage = card.querySelector('.bg-cover').style.backgroundImage;
+                const title = card.dataset.title;
+                const price = parseInt(card.dataset.price);
+                const description = card.querySelector('p').innerText;
+                const displayPrice = card.querySelector('.text-primary').innerText;
+
+                currentBasePrice = price;
+                currentQty = 1;
+                currentItemTitle = title;
+
+                modalImage.style.backgroundImage = bgImage;
+                modalTitle.innerText = title;
+                modalPrice.innerText = displayPrice;
+                modalDescription.innerText = description;
+
+                updateModalPrice();
+
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+
+                setTimeout(() => {
+                    modalBackdrop.classList.remove('opacity-0');
+                    modalContent.classList.remove('opacity-0', 'scale-95');
+                    modalContent.classList.add('scale-100');
+                }, 10);
+            }
+
+            function closeModal() {
+                modalBackdrop.classList.add('opacity-0');
+                modalContent.classList.add('opacity-0', 'scale-95');
+                modalContent.classList.remove('scale-100');
+
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                }, 300);
+            }
+
+            // Card Click Events
+            cards.forEach(card => {
+                // Prevent modal opening when clicking 'Add' directly on card
+                const quickBtn = card.querySelector('.quick-add-btn');
+                if (quickBtn) {
+                    quickBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        updateCart(1);
+                        showToast(`Added 1x \${card.dataset.title} to cart`);
+                    });
+                }
+
+                card.addEventListener('click', () => {
+                    openModal(card);
+                });
+            });
+
+            // Modal Controls
+            decreaseQtyBtn.addEventListener('click', () => {
+                if (currentQty > 1) {
+                    currentQty--;
+                    updateModalPrice();
+                }
+            });
+
+            increaseQtyBtn.addEventListener('click', () => {
+                currentQty++;
+                updateModalPrice();
+            });
+
+            addToCartBtn.addEventListener('click', () => {
+                updateCart(currentQty);
+                showToast(`Added \${currentQty}x \${currentItemTitle} to cart`);
+                closeModal();
+            });
+
+            closeModalBtn.addEventListener('click', closeModal);
+            modalBackdrop.addEventListener('click', closeModal);
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                    closeModal();
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

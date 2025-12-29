@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Menu - Mie Jebew GDC</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Theme Config -->
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ea1a1a",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#211111",
+                        "card-light": "#ffffff",
+                        "card-dark": "#2a1e1e",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "2xl": "4rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark min-h-screen font-display flex flex-col overflow-x-hidden">
+    <!-- Navigation -->
+    <header
+        class="sticky top-0 z-50 bg-white dark:bg-card-dark border-b border-gray-100 dark:border-gray-800 transition-colors duration-300">
+        <div class="max-w-[1280px] mx-auto px-4 sm:px-10 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-4 text-[#181111] dark:text-white">
+                <div class="size-8 text-primary">
+                    <span class="material-symbols-outlined text-3xl">ramen_dining</span>
+                </div>
+                <h2 class="text-lg font-extrabold leading-tight tracking-[-0.015em] text-gray-900 dark:text-white">Mie
+                    Jebew GDC</h2>
+            </div>
+            <div class="hidden md:flex flex-1 justify-end gap-8 items-center">
+                <div class="flex items-center gap-8">
+                    <a class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-bold transition-colors"
+                        href="#">Home</a>
+                    <a class="text-primary dark:text-primary text-sm font-bold transition-colors" href="#">Menu</a>
+                    <a class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-bold transition-colors"
+                        href="#">Contact</a>
+                    <a class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-bold transition-colors"
+                        href="#">About Us</a>
+                </div>
+                <button id="cartButton"
+                    class="flex items-center justify-center rounded-full h-10 bg-gray-100 dark:bg-gray-800 hover:bg-primary hover:text-white text-gray-900 dark:text-white gap-2 text-sm font-bold px-4 transition-all">
+                    <span class="material-symbols-outlined text-[20px]">shopping_cart</span>
+                    <span>Cart (<span id="cartCount">0</span>)</span>
+                </button>
+            </div>
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden p-2 text-gray-900 dark:text-white">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+        </div>
+    </header>
+    <!-- Page Content -->
+    <main class="flex-1 w-full max-w-[1280px] mx-auto px-4 sm:px-10 py-8">
+        <!-- Hero Banner -->
+        <div class="relative w-full rounded-2xl overflow-hidden mb-10 min-h-[240px] flex items-center justify-center bg-cover bg-center"
+            data-alt="Dark moody overhead shot of spicy asian noodle dishes"
+            style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://lh3.googleusercontent.com/aida-public/AB6AXuCAhGex5NM42zXg5f7jW00lhupQRjAqSxFpwpxyTPDwcW5g6R0XszqklVD5Ikd4zpxA2Q3Ndb_6dRUG6EnLmVTe5YFvI8UAsJihAom720VRvEC-JjtB74q2DWQgjfj3t1eKSWFazmc0RpQHzPiRCJHgaT75qDAqfrhExXQCovAnCRZMVb167fEZoujDuMjVQKf0MpkC2k1pKiUa4BI02-8j5NkOVeb9LFZfc1lvQDyCRfLBm8e4QH7tGsURrqVVFvRp9BllmgCll8A');">
+            <div class="text-center z-10 px-4">
+                <h1 class="text-white text-4xl md:text-5xl font-black mb-2 tracking-tight">Our Menu</h1>
+                <p class="text-gray-200 text-lg md:text-xl font-medium max-w-xl mx-auto">Explore the spicy sensation of
+                    Mie Jebew and our crispy sides.</p>
+            </div>
+        </div>
+        <!-- Filter Chips -->
+        <div
+            class="sticky top-[72px] z-40 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-sm py-4 -mx-4 px-4 sm:mx-0 sm:px-0 mb-8 overflow-x-auto no-scrollbar">
+            <div id="filterContainer" class="flex gap-3 min-w-max">
+                <!-- Filter chips will be rendered by JavaScript -->
+            </div>
+        </div>
+        <!-- Section Title -->
+        <div class="flex items-end justify-between mb-6">
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Popular Dishes</h3>
+            <span id="menuCountLabel" class="text-sm font-medium text-gray-500 dark:text-gray-400">Showing 0
+                items</span>
+        </div>
+        <!-- Menu Grid - will be rendered by JavaScript -->
+        <div id="menuGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Cards rendered dynamically -->
+        </div>
+        <!-- Load More -->
+        <div class="flex justify-center mt-12">
+            <button
+                class="text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full px-8 py-3 text-sm font-bold transition-all flex items-center gap-2">
+                <span>View All Menu</span>
+                <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+            </button>
+        </div>
+    </main>
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-card-dark border-t border-gray-100 dark:border-gray-800 pt-12 pb-8">
+        <div class="max-w-[1280px] mx-auto px-4 sm:px-10">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center gap-3 text-[#181111] dark:text-white mb-4">
+                        <div class="size-8 text-primary">
+                            <span class="material-symbols-outlined text-3xl">ramen_dining</span>
+                        </div>
+                        <h2 class="text-xl font-extrabold tracking-[-0.015em]">Mie Jebew GDC</h2>
+                    </div>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed max-w-xs">
+                        Nikmati sensasi pedas yang nampol dan rasa yang juara hanya di Mie Jebew GDC. Freshly made every
+                        day.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400">
+                        <li><a class="hover:text-primary transition-colors" href="#">Home</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Menu</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-4">Connect With Us</h4>
+                    <ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400">
+                        <li><a class="hover:text-primary transition-colors" href="#">Instagram</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Facebook</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">TikTok</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div
+                class="border-t border-gray-100 dark:border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-xs text-gray-400 text-center md:text-left">© 2023 Mie Jebew GDC. All rights reserved.</p>
+                <div class="flex gap-4">
+                    <a class="text-xs text-gray-400 hover:text-gray-600 dark:hover:text-gray-300" href="#">Privacy
+                        Policy</a>
+                    <a class="text-xs text-gray-400 hover:text-gray-600 dark:hover:text-gray-300" href="#">Terms of
+                        Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal Backdrop -->
+    <div id="productModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4">
+        <!-- Backdrop Overlay -->
+        <div id="modalBackdrop"
+            class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity opacity-0 duration-300"></div>
+
+        <!-- Modal Content -->
+        <div id="modalContent"
+            class="relative bg-white dark:bg-[#2a1e1e] w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl transform scale-95 opacity-0 transition-all duration-300 z-10 flex flex-col max-h-[90vh]">
+            <!-- Close Button -->
+            <button id="closeModal"
+                class="absolute top-4 right-4 z-20 p-2 rounded-full bg-black/20 text-white hover:bg-black/40 transition-colors backdrop-blur-md">
+                <span class="material-symbols-outlined text-[20px]">close</span>
+            </button>
+
+            <!-- Image Container -->
+            <div class="relative w-full h-64 sm:h-72 shrink-0">
+                <div id="modalImage" class="absolute inset-0 bg-cover bg-center"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+            </div>
+
+            <!-- Details Container -->
+            <div class="p-6 sm:p-8 flex flex-col gap-4 overflow-y-auto">
+                <div class="flex items-start justify-between gap-4">
+                    <h3 id="modalTitle"
+                        class="text-2xl sm:text-3xl font-black text-gray-900 dark:text-white leading-tight"></h3>
+                    <span id="modalPrice" class="text-xl sm:text-2xl font-bold text-primary shrink-0"></span>
+                </div>
+
+                <p id="modalDescription" class="text-gray-600 dark:text-gray-300 text-base leading-relaxed"></p>
+
+                <div class="pt-6 mt-auto border-t border-gray-100 dark:border-gray-800 flex items-center gap-4">
+                    <div class="flex items-center border border-gray-200 dark:border-gray-700 rounded-full h-12">
+                        <button id="modalQtyMinus"
+                            class="px-4 h-full text-gray-500 hover:text-primary transition-colors font-bold text-lg">-</button>
+                        <span id="modalQty" class="w-8 text-center font-bold text-gray-900 dark:text-white">1</span>
+                        <button id="modalQtyPlus"
+                            class="px-4 h-full text-gray-500 hover:text-primary transition-colors font-bold text-lg">+</button>
+                    </div>
+                    <button id="modalAddToCart"
+                        class="flex-1 bg-primary hover:bg-red-700 text-white h-12 rounded-full font-bold text-base shadow-lg shadow-primary/30 transition-all hover:-translate-y-1 active:translate-y-0 flex items-center justify-center gap-2">
+                        <span>Add to Order</span>
+                        <span class="material-symbols-outlined">shopping_bag</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast"
+        class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[200] bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-6 py-3 rounded-full shadow-xl flex items-center gap-2 text-sm font-medium opacity-0 pointer-events-none transition-all duration-300 translate-y-4">
+        <span class="material-symbols-outlined text-green-400 dark:text-green-600 text-[20px]">check_circle</span>
+        <span id="toastMessage">Item added to cart!</span>
+    </div>
+
+    <script>
+        /**
+         * ===========================================
+         * MIE JEBEW GDC - MENU PAGE JAVASCRIPT
+         * Data-Driven Approach & Scalable Architecture
+         * ===========================================
+         */
+
+        // ========================================
+        // 1. MENU DATA - Single Source of Truth
+        // ========================================
+        const MENU_DATA = [
+            {
+                id: 1,
+                name: "Mie Jebew",
+                category: "mie",
+                price: 10000,
+                priceDisplay: "Rp 10.000",
+                description: "Mie buatan tangan yang disiram racikan chili oil spesial dengan taburan ayam gurih di atasnya. Level pedas dapat disesuaikan.",
+                image: "https://i.ibb.co.com/tG4WkRC/unnamed-2-s.jpg",
+                spiceLevel: 5,
+                badge: "Best Seller",
+                badgeIcon: "local_fire_department"
+            },
+            {
+                id: 2,
+                name: "Kebab Beef",
+                category: "kebab",
+                price: 12000,
+                priceDisplay: "Rp 12.000",
+                description: "Irisan daging sapi panggang yang juicy berpadu dengan selada segar, dibalut tortila lembut dan siraman saus putih rahasia kami.",
+                image: "https://i.ibb.co.com/hFHwyzzQ/Kebab-Beef-Biasa.jpg",
+                spiceLevel: 1,
+                badge: null,
+                badgeIcon: null
+            },
+            {
+                id: 3,
+                name: "Lumpia Beef",
+                category: "lumpia",
+                price: 10000,
+                priceDisplay: "Rp 10.000",
+                description: "Kriuk di luar, mewah di dalam! Kulit lumpia renyah yang membungkus beef slice yang juicy dan saus gurih.",
+                image: "https://i.ibb.co.com/9Hhd4XTy/Lumpia-a.jpg",
+                spiceLevel: 1,
+                badge: null,
+                badgeIcon: null
+            },
+            {
+                id: 4,
+                name: "Mie Yamin Manis",
+                category: "mie",
+                price: 14000,
+                priceDisplay: "14k",
+                description: "Perpaduan rasa manis kecap berkualitas dan gurihnya bumbu rahasia. Tidak pedas.",
+                image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAxiQcIQV2LexrVLgw548ggqbp09QEFwjx0pnIxKGeqveWZPUaZ0VVxPQBLvkscg8TWvxbEtfMnVnW6zXAxiCRA9FsTCJEA5eYWrGzWUktAzbmILE6YZ_kctSuywbPf8tf41FJc8eqqA6IFNGXlq32cslWCaGftvXUc9OhiOeLCHFXSrQ4VkAyRVRFBbip1jki-QJQPM9l76F1-ubmJ-ykr-6VcVx_351WynlBl4phlzEr15YN9H2PKTifhbyBvoPMhrCa3ioATn68",
+                spiceLevel: 0,
+                badge: null,
+                badgeIcon: null
+            },
+            {
+                id: 5,
+                name: "Mie Jebew Chicken Katsu",
+                category: "mie",
+                price: 16000,
+                priceDisplay: "16k",
+                description: "Varian kuah pedas yang segar, disajikan dengan telur rebus dan sayuran.",
+                image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAUZ9eiyS9JnVdDRczvaO_feK4LPS1gdqpuCrfyowDjLKL6e3lIAGZGaztDI8rA44UXTqf__iJNcIe0wCPsRB5GmU-pIU72GYeixqNkCv3HY5BBdAREgaz_jfmTByaLiJf3HfT2PyBxscTv5lbvU7xT1MWIbzF5Nvpedi1XTNjeSyvkye2iiZDOL2dp_Oq01N9VpZzUt9jGyLgCm6MsZk5vc4SuYey4WDWGuuHqff5pubDMcD8PcoUagaskiwGoMwmxoFWfYzGhDaU",
+                spiceLevel: 4,
+                badge: null,
+                badgeIcon: null
+            },
+            {
+                id: 6,
+                name: "Kebab Mini (3 pcs)",
+                category: "kebab",
+                price: 25000,
+                priceDisplay: "25k",
+                description: "Paket hemat 3 kebab ukuran mini. Pilihan tepat untuk berbagi dengan teman.",
+                image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCXdJc5QfbTEtkBz-K7p8dUXtst992pu0iorA5I8s7MOzyMb2iN7BDc2rxrYRM5TMGhLXvePwj00xGIFQWz95F4qXFyiWtl3T9jBK7R1vwWzVcJ5E6YiePjP66NIdivO3k5bwRQP3ORTo364ZZQfXL9iaogLIq6fFv47KRpRzyEu-eruidUaGn7Ece5s3QZ_d2R9gElgGFAVshUqvUZ-mJqtzBY0293uq4-GCcZpz6MAW7yC6L1YCyyhspNUgPAW-ViYGysvhhNY2k",
+                spiceLevel: 1,
+                badge: null,
+                badgeIcon: null
+            },
+            {
+                id: 7,
+                name: "Orange Splash",
+                category: "drinks",
+                price: 10000,
+                priceDisplay: "10k",
+                description: "Minuman jeruk segar dengan soda dan es batu. Penghilang pedas terbaik!",
+                image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAN6HxrO1QMPck9bWm6OHJ-qRfNIhbML9Hdq-bAFT90jzVsSM5CFEaPHRUrOWm0yZ5rin-ticU8g0SwYIopmkUJc5CxAGxnwIoLXHHMORNUIZjYI4e0Ha-28Sblkql8LlyH4BxjDJcH71Gc4UF5JW2o_l9EjmloLQBAgVtPB8HSt1pEENuEYD_et29ca58C2KHphYioQhDSNEUyrVsIj6ydGvIWWXU-j_PO_eyz0xLFRdDPvGAibspQkus7SjlgEUxHjWqN3ACiVcY",
+                spiceLevel: 0,
+                badge: null,
+                badgeIcon: null,
+                isDrink: true
+            },
+            {
+                id: 8,
+                name: "Es Teh Manis",
+                category: "drinks",
+                price: 5000,
+                priceDisplay: "5k",
+                description: "Teh manis dingin klasik yang menyegarkan dahaga.",
+                image: "https://lh3.googleusercontent.com/aida-public/AB6AXuA1eGYgZPuqSMB5ZRDhAGACNrQeryLjFV5q2qEcm4gjdLEOsNxuUc61yZsm9kQbECLF0ykq5u4Z9mojWeU4411zDR6_HCDEcqmZdTciFzt0UvKnkfsLCcbYliNuAEd__4qw9bQ75xp81B77r3L3uxUKwigFqA7vFhEHwuMbrrVYj2Up6Nanllme3_ywTDA2wxtA0VYrqocLhgo8o0GGG-_wkei2Gkj5iJvukT9H9QTgQEsGcgNBQIRrzS_9fqc_1i9CMH0deKS6fB8",
+                spiceLevel: 0,
+                badge: null,
+                badgeIcon: null,
+                isDrink: true
+            }
+        ];
+
+        // Filter categories configuration
+        const FILTER_CATEGORIES = [
+            { id: "all", name: "All", icon: "storefront" },
+            { id: "mie", name: "Mie Jebew", icon: "ramen_dining" },
+            { id: "kebab", name: "Kebab", icon: "kebab_dining" },
+            { id: "lumpia", name: "Lumpia Beef", icon: "egg" },
+            { id: "drinks", name: "Drinks", icon: "local_drink" }
+        ];
+
+        // ========================================
+        // 2. APPLICATION STATE
+        // ========================================
+        const AppState = {
+            cart: [],
+            activeFilter: "all",
+            modalData: null,
+            modalQty: 1
+        };
+
+        // ========================================
+        // 3. DOM ELEMENTS CACHE
+        // ========================================
+        const DOM = {
+            menuGrid: document.getElementById('menuGrid'),
+            filterContainer: document.getElementById('filterContainer'),
+            menuCountLabel: document.getElementById('menuCountLabel'),
+            cartCount: document.getElementById('cartCount'),
+            // Modal elements
+            modal: document.getElementById('productModal'),
+            modalBackdrop: document.getElementById('modalBackdrop'),
+            modalContent: document.getElementById('modalContent'),
+            closeModal: document.getElementById('closeModal'),
+            modalImage: document.getElementById('modalImage'),
+            modalTitle: document.getElementById('modalTitle'),
+            modalPrice: document.getElementById('modalPrice'),
+            modalDescription: document.getElementById('modalDescription'),
+            modalQty: document.getElementById('modalQty'),
+            modalQtyMinus: document.getElementById('modalQtyMinus'),
+            modalQtyPlus: document.getElementById('modalQtyPlus'),
+            modalAddToCart: document.getElementById('modalAddToCart'),
+            // Toast
+            toast: document.getElementById('toast'),
+            toastMessage: document.getElementById('toastMessage')
+        };
+
+        // ========================================
+        // 4. UTILITY FUNCTIONS
+        // ========================================
+
+        /**
+         * Generate spice level indicator HTML
+         */
+        function generateSpiceLevel(level, isDrink = false) {
+            if (isDrink) {
+                return `<span class="material-symbols-outlined text-[18px] text-blue-400">local_drink</span>`;
+            }
+
+            if (level === 0) {
+                return `<span class="material-symbols-outlined text-[18px] opacity-20">local_fire_department</span>`;
+            }
+
+            let html = '';
+            for (let i = 1; i <= 5; i++) {
+                if (i <= level) {
+                    html += `<span class="material-symbols-outlined text-[18px] ${level >= 4 ? '' : 'text-orange-400'}">local_fire_department</span>`;
+                } else {
+                    html += `<span class="material-symbols-outlined text-[18px] opacity-20">local_fire_department</span>`;
+                }
+            }
+            return html;
+        }
+
+        /**
+         * Show toast notification
+         */
+        function showToast(message = "Item added to cart!") {
+            DOM.toastMessage.textContent = message;
+            DOM.toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+            DOM.toast.classList.add('opacity-100', 'translate-y-0');
+
+            setTimeout(() => {
+                DOM.toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+                DOM.toast.classList.remove('opacity-100', 'translate-y-0');
+            }, 2500);
+        }
+
+        // ========================================
+        // 5. RENDER FUNCTIONS
+        // ========================================
+
+        /**
+         * Render a single menu card
+         */
+        function renderMenuCard(item) {
+            const spiceHtml = generateSpiceLevel(item.spiceLevel, item.isDrink);
+            const badgeHtml = item.badge ? `
+                <div class="absolute top-3 left-3 bg-primary text-white text-xs font-bold px-2.5 py-1 rounded-full z-10 flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[14px]">${item.badgeIcon}</span> ${item.badge}
+                </div>
+            ` : '';
+
+            return `
+                <div class="group bg-white dark:bg-card-dark rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-xl hover:shadow-red-500/10 transition-all duration-300 flex flex-col h-full cursor-pointer js-menu-card"
+                    data-id="${item.id}"
+                    data-category="${item.category}">
+                    <div class="relative aspect-[4/3] overflow-hidden">
+                        ${badgeHtml}
+                        <div class="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-500"
+                            style="background-image: url('${item.image}');"></div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold text-gray-900 dark:text-white group-hover:text-primary transition-colors">
+                                ${item.name}</h3>
+                            <span class="text-lg font-bold text-primary">${item.priceDisplay}</span>
+                        </div>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed mb-4 line-clamp-2">
+                            ${item.description}
+                        </p>
+                        <div class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between gap-3">
+                            <div class="flex gap-0.5 ${item.spiceLevel >= 4 ? 'text-primary/80' : 'text-gray-300 dark:text-gray-600'}" title="${item.spiceLevel > 0 ? 'Spiciness Level ' + item.spiceLevel : (item.isDrink ? 'Drink' : 'Not Spicy')}">
+                                ${spiceHtml}
+                            </div>
+                            <button class="js-add-btn bg-primary hover:bg-red-700 text-white text-sm font-bold py-2 px-4 rounded-full transition-colors flex items-center gap-1"
+                                data-id="${item.id}">
+                                Add <span class="material-symbols-outlined text-[16px]">add</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        /**
+         * Render all menu cards based on filter
+         */
+        function renderMenuGrid() {
+            const filteredItems = AppState.activeFilter === 'all'
+                ? MENU_DATA
+                : MENU_DATA.filter(item => item.category === AppState.activeFilter);
+
+            DOM.menuGrid.innerHTML = filteredItems.map(renderMenuCard).join('');
+            DOM.menuCountLabel.textContent = `Showing ${filteredItems.length} items`;
+
+            // Re-attach event listeners
+            attachCardEventListeners();
+        }
+
+        /**
+         * Render filter chips
+         */
+        function renderFilterChips() {
+            DOM.filterContainer.innerHTML = FILTER_CATEGORIES.map(cat => {
+                const isActive = AppState.activeFilter === cat.id;
+                const activeClass = isActive
+                    ? 'bg-primary pl-4 pr-6 text-white shadow-lg shadow-red-500/20'
+                    : 'bg-white dark:bg-card-dark border border-gray-200 dark:border-gray-700 pl-4 pr-6 text-gray-700 dark:text-gray-200 hover:border-primary hover:text-primary';
+
+                return `
+                    <button class="js-filter-btn flex h-10 items-center justify-center gap-x-2 rounded-full transition-all ${activeClass}"
+                        data-filter="${cat.id}">
+                        <span class="material-symbols-outlined text-[20px]">${cat.icon}</span>
+                        <span class="text-sm font-bold">${cat.name}</span>
+                    </button>
+                `;
+            }).join('');
+
+            // Attach filter event listeners
+            attachFilterEventListeners();
+        }
+
+        /**
+         * Update cart count display
+         */
+        function updateCartCount() {
+            const totalItems = AppState.cart.reduce((sum, item) => sum + item.qty, 0);
+            DOM.cartCount.textContent = totalItems;
+        }
+
+        // ========================================
+        // 6. MODAL FUNCTIONS
+        // ========================================
+
+        /**
+         * Open product modal
+         */
+        function openModal(itemId) {
+            const item = MENU_DATA.find(m => m.id === itemId);
+            if (!item) return;
+
+            AppState.modalData = item;
+            AppState.modalQty = 1;
+
+            // Populate modal
+            DOM.modalImage.style.backgroundImage = `url('${item.image}')`;
+            DOM.modalTitle.textContent = item.name;
+            DOM.modalPrice.textContent = item.priceDisplay;
+            DOM.modalDescription.textContent = item.description;
+            DOM.modalQty.textContent = AppState.modalQty;
+
+            // Show modal with animation
+            DOM.modal.classList.remove('hidden');
+            DOM.modal.classList.add('flex');
+
+            setTimeout(() => {
+                DOM.modalBackdrop.classList.remove('opacity-0');
+                DOM.modalContent.classList.remove('opacity-0', 'scale-95');
+                DOM.modalContent.classList.add('scale-100');
+            }, 10);
+        }
+
+        /**
+         * Close product modal
+         */
+        function closeModal() {
+            DOM.modalBackdrop.classList.add('opacity-0');
+            DOM.modalContent.classList.add('opacity-0', 'scale-95');
+            DOM.modalContent.classList.remove('scale-100');
+
+            setTimeout(() => {
+                DOM.modal.classList.add('hidden');
+                DOM.modal.classList.remove('flex');
+                AppState.modalData = null;
+                AppState.modalQty = 1;
+            }, 300);
+        }
+
+        // ========================================
+        // 7. CART FUNCTIONS
+        // ========================================
+
+        /**
+         * Add item to cart
+         */
+        function addToCart(itemId, qty = 1) {
+            const item = MENU_DATA.find(m => m.id === itemId);
+            if (!item) return;
+
+            const existingItem = AppState.cart.find(c => c.id === itemId);
+            if (existingItem) {
+                existingItem.qty += qty;
+            } else {
+                AppState.cart.push({
+                    id: item.id,
+                    name: item.name,
+                    price: item.price,
+                    qty: qty
+                });
+            }
+
+            updateCartCount();
+            showToast(`${item.name} (${qty}x) added!`);
+        }
+
+        // ========================================
+        // 8. EVENT LISTENERS
+        // ========================================
+
+        /**
+         * Attach event listeners to menu cards
+         */
+        function attachCardEventListeners() {
+            // Card click -> open modal
+            document.querySelectorAll('.js-menu-card').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    // Don't open modal if Add button clicked
+                    if (e.target.closest('.js-add-btn')) return;
+
+                    const itemId = parseInt(card.dataset.id);
+                    openModal(itemId);
+                });
+            });
+
+            // Add button click -> add to cart directly
+            document.querySelectorAll('.js-add-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const itemId = parseInt(btn.dataset.id);
+                    addToCart(itemId, 1);
+                });
+            });
+        }
+
+        /**
+         * Attach event listeners to filter chips
+         */
+        function attachFilterEventListeners() {
+            document.querySelectorAll('.js-filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    AppState.activeFilter = btn.dataset.filter;
+                    renderFilterChips();
+                    renderMenuGrid();
+                });
+            });
+        }
+
+        /**
+         * Initialize modal event listeners
+         */
+        function initModalEventListeners() {
+            // Close modal events
+            DOM.closeModal.addEventListener('click', closeModal);
+            DOM.modalBackdrop.addEventListener('click', closeModal);
+
+            // Escape key closes modal
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !DOM.modal.classList.contains('hidden')) {
+                    closeModal();
+                }
+            });
+
+            // Quantity controls in modal
+            DOM.modalQtyMinus.addEventListener('click', () => {
+                if (AppState.modalQty > 1) {
+                    AppState.modalQty--;
+                    DOM.modalQty.textContent = AppState.modalQty;
+                }
+            });
+
+            DOM.modalQtyPlus.addEventListener('click', () => {
+                AppState.modalQty++;
+                DOM.modalQty.textContent = AppState.modalQty;
+            });
+
+            // Add to cart from modal
+            DOM.modalAddToCart.addEventListener('click', () => {
+                if (AppState.modalData) {
+                    addToCart(AppState.modalData.id, AppState.modalQty);
+                    closeModal();
+                }
+            });
+        }
+
+        // ========================================
+        // 9. INITIALIZATION
+        // ========================================
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Render initial UI
+            renderFilterChips();
+            renderMenuGrid();
+
+            // Initialize modal listeners
+            initModalEventListeners();
+
+            console.log('🍜 Mie Jebew GDC Menu initialized!');
+        });
+    </script>
+</body>
+
+</html>

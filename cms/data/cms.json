@@ -1,0 +1,67 @@
+{
+  "pages": [
+    {
+      "id": "2cd2b805-448a-4242-b88c-be0c0e7b8e45",
+      "slug": "about",
+      "title": "Tentang Kami",
+      "content": "# Tentang Mie Jebew GDC\n\n## Kisah Kami\n\n**Mie Jebew GDC** lahir dari kecintaan kami terhadap kuliner pedas yang autentik. Berawal dari suka dengan mie pedas pada tahun 2023, kami berkomitmen untuk menghadirkan pengalaman makan mie pedas yang tak terlupakan.\n\n## Filosofi Kami\n\n> \"Pedas bukan sekadar rasa, tapi pengalaman yang membakar semangat\"\n\nKami percaya bahwa setiap mangkuk mie yang kami sajikan harus memiliki:\n\n- **Kualitas Premium** - Bahan-bahan pilihan terbaik\n- **Rasa Autentik** - Resep rahasia turun-temurun\n- **Pedas Nendang** - Level pedas yang bisa disesuaikan\n\n## Tim Kami\n\nTim Mie Jebew GDC terdiri dari:\n\n1. **Chef Utama** - Ahli racik bumbu dengan pengalaman 15+ tahun\n2. **Tim Dapur** - Terlatih untuk menjaga konsistensi rasa\n3. **Tim Pelayanan** - Ramah dan siap membantu\n\n## Prestasi\n\n- ⭐ Rating 4.8/5 di Google Maps\n- 🏆 \"Best Spicy Noodle\" Depok Food Festival 2023\n- 📱 10.000+ followers di Instagram\n\n## Lokasi\n\nKunjungi kami di:\n\n**Grand Depok City**\nJl. Grand Depok City, Tirtajaya\nKec. Sukmajaya, Kota Depok\nJawa Barat 16412\n\n**Jam Operasional:**\nSetiap hari, 10.00 - 22.00 WIB\n",
+      "metaDescription": "Mie Jebew GDC - Restoran mie pedas terbaik di Depok. Berdiri sejak 2023, kami sajikan pengalaman kuliner pedas yang tak terlupakan.",
+      "isPublished": true,
+      "createdAt": "2025-12-26T14:15:33.802Z",
+      "updatedAt": "2025-12-26T14:15:33.802Z"
+    }
+  ],
+  "contentBlocks": [
+    {
+      "id": "b36bbf29-4db0-4f65-8735-7a03829c9f4c",
+      "key": "about_hero_title",
+      "title": "About Hero Title",
+      "content": "Mie Jebew Grand Depok City",
+      "type": "markdown",
+      "updatedAt": "2025-12-26T14:15:33.802Z"
+    },
+    {
+      "id": "49b379b3-df34-467f-9302-4f575c177f0d",
+      "key": "about_hero_subtitle",
+      "title": "About Hero Subtitle",
+      "content": "Lahir dari kecintaan akan kuliner pedas yang autentik",
+      "type": "text",
+      "updatedAt": "2025-12-26T14:15:33.802Z"
+    },
+    {
+      "id": "cb6a3242-3f48-4f67-96dd-68cab49cadf4",
+      "key": "about_story",
+      "title": "Our Story",
+      "content": "Bermula dari lapak sederhana di kawasan GDC sejak 2023, Mie Jebew GDC kini telah menjadi destinasi kuliner favorit bagi pecinta pedas di Depok.\n\nDengan resep rahasia dan bahan-bahan berkualitas premium, kami berkomitmen menghadirkan pengalaman makan mie pedas yang tak terlupakan.",
+      "type": "markdown",
+      "updatedAt": "2025-12-26T14:15:33.802Z"
+    },
+    {
+      "id": "7757f15e-419f-4e54-8732-c29c0bfc8cfd",
+      "key": "about_mission",
+      "title": "Our Mission",
+      "content": "Menyajikan cita rasa pedas otentik dengan kualitas bahan terbaik demi menciptakan pengalaman kuliner yang berkesan bagi setiap pelanggan",
+      "type": "text",
+      "updatedAt": "2025-12-26T14:15:33.802Z"
+    },
+    {
+      "id": "8327c028-1b6b-4e61-86e0-f99e4233c7c5",
+      "key": "about_vision",
+      "title": "Our Vision",
+      "content": "Menjadi destinasi utama bagi penikmat rasa pedas otentik melalui inovasi kuliner yang berkualitas",
+      "type": "text",
+      "updatedAt": "2025-12-26T14:15:33.802Z"
+    }
+  ],
+  "users": [
+    {
+      "id": "2eb1d70e-2b47-4f37-a2bb-31ddbac2d8b0",
+      "email": "admin@miejebew.com",
+      "passwordHash": "$2a$10$N04zs2/9a1.0iA4D7uAbR.i9FGhP81pagOA.BR.uQyM.z6PnTXL2.",
+      "name": "Admin",
+      "role": "admin",
+      "createdAt": "2025-12-26T14:15:33.798Z"
+    }
+  ],
+  "sessions": []
+}
