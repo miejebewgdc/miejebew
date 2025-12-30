@@ -34,7 +34,7 @@ export function CTA() {
                     <div className="flex-1 flex justify-center md:justify-end relative">
                         <div className="relative w-[300px] md:w-[400px]">
                             {/* Phone Mockup Abstract */}
-                            <img alt="Food Delivery App" className="rounded-2xl rotate-3 shadow-2xl border-4 border-white/20" src="https://i.ibb.co/k65ntvJm/unnamed-1.png" />
+                            <img alt="Food Delivery App" className="rounded-2xl rotate-3 shadow-2xl border-4 border-white/20" src="https://i.ibb.co.com/k65ntvJm/unnamed-1.png" />
                             {/* Floating Sticker */}
                             {/* Floating Sticker */}
                             <div className="absolute -bottom-6 -left-6 bg-accent-yellow text-black font-black p-4 rounded-full w-28 h-28 flex flex-col items-center justify-center animate-float-rotate shadow-lg text-center leading-none">
