@@ -46,7 +46,7 @@ export function Hero() {
                     <div className="absolute inset-0 bg-gradient-radial from-primary/20 to-transparent opacity-50 blur-2xl"></div>
                     {/* Using a circular mask for dynamic feel */}
                     <div className="relative w-full max-w-[500px] aspect-square rounded-full border-8 border-white/50 dark:border-white/10 shadow-2xl overflow-hidden animate-float">
-                        <img alt="Spicy noodle bowl with chopsticks" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" src={`${import.meta.env.BASE_URL}hero-image-new.jpg`} />
+                        <img alt="Spicy noodle bowl with chopsticks" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" src={`${import.meta.env.BASE_URL}hero-image-new.webp`} />
                     </div>
                     {/* Floating Badge */}
                     <div className="absolute bottom-10 -left-4 md:left-10 bg-white dark:bg-surface-dark p-4 rounded-xl shadow-lg flex items-center gap-3 animate-bounce-slow">

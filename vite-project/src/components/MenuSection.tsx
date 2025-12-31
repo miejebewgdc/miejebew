@@ -250,7 +250,7 @@ export const MENU_DATA: MenuItem[] = [
         category: "choco",
         price: 8000,
         priceDisplay: "Rp 8.000",
-        description: "Bubuk Milo + Bubuk Creamer Thailand + Susu Full Cream + Gula Aren.",
+        description: "Bubuk Milo + Bubuk Creamer Thailand + Susu Full Cream",
         image: "https://i.ibb.co/VpDJp19R/NEW-MILO-DINOSAUR.jpg",
         spiceLevel: 0,
         isDrink: true,

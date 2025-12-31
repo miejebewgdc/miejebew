@@ -22,7 +22,7 @@ export function Header() {
             <div className="px-4 md:px-10 lg:px-40 py-3">
                 <div className="flex items-center justify-between max-w-[1280px] mx-auto">
                     <div className="flex items-center gap-3">
-                        <img src={`${import.meta.env.BASE_URL}mie-jebew-logo.jpg`} alt="Mie Jebew GDC" className="h-14 w-auto object-contain" />
+                        <img src={`${import.meta.env.BASE_URL}mie-jebew-logo.webp`} alt="Mie Jebew GDC" className="h-14 w-auto object-contain" />
                         <h2 className="text-xl font-extrabold tracking-tight text-text-main dark:text-white">Mie Jebew GDC</h2>
                     </div>
                     <div className="hidden md:flex flex-1 justify-end items-center gap-8">

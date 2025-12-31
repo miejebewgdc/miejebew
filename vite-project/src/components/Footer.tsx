@@ -7,7 +7,7 @@ export function Footer() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
                     <div className="flex flex-col gap-4 col-span-1 md:col-span-1">
                         <div className="flex items-center gap-2">
-                            <img src={`${import.meta.env.BASE_URL}mie-jebew-logo.jpg`} alt="Mie Jebew GDC" className="h-12 w-auto object-contain" />
+                            <img src={`${import.meta.env.BASE_URL}mie-jebew-logo.webp`} alt="Mie Jebew GDC" className="h-12 w-auto object-contain" />
                             <h3 className="text-lg font-bold text-text-main dark:text-white">Mie Jebew GDC</h3>
                         </div>
                         <p className="text-sm text-text-muted dark:text-gray-400">
