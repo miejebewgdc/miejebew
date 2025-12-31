@@ -39,7 +39,7 @@ const TEAM_MEMBERS = [
         name: 'Rania Putri Amalia, S.Psi',
         positionTop: 'Founder',
         positionBottom: 'Chief Executive Officer',
-        image: 'https://i.ibb.co/4nxKsT2V/RANIA.jpg',
+        image: 'https://i.ibb.co.com/VYTDfbqS/RANIA-WEB.webp',
         socials: {
             instagram: 'https://instagram.com/rania.putri',
             facebook: 'https://facebook.com/rania.putri',
@@ -50,7 +50,7 @@ const TEAM_MEMBERS = [
         name: 'Taufiq Rusdhi, S.M.',
         positionTop: 'Co-Founder',
         positionBottom: 'Chief Operation Officer',
-        image: 'https://i.ibb.co/Wv5ysxCm/TAUFIQ.jpg',
+        image: 'https://i.ibb.co.com/N2Ktg4b2/TAUFIQ-WEB.webp',
         socials: {
             instagram: 'https://instagram.com/taufiq.rusdhi',
             facebook: 'https://facebook.com/taufiq.rusdhi',
