@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react"
 import { defineConfig } from "vite"
 
 export default defineConfig({
-    base: '/miejebew/', // Nama repo harus diapit garis miring
+    base: './', // Menggunakan './' agar path menjadi relatif
     plugins: [react()],
     resolve: {
         alias: {
